@@ -1,0 +1,55 @@
+@url = http://localhost:3001
+
+### Ver si el servidor responde
+GET {{url}}/
+
+### Crear un usuario (registro)
+POST {{url}}/usuarios
+Content-Type: application/json
+
+{
+  "nombre": "Pedro",
+  "email": "pedro@gmail.com",
+  "password": "123456"
+}
+
+### Login (ejecuta este primero: el token se guarda solo para las de abajo)
+# @name login
+POST {{url}}/login
+Content-Type: application/json
+
+{
+  "email": "pedro@gmail.com",
+  "password": "123456"
+}
+
+### Mi perfil
+# @name perfil
+GET {{url}}/perfil
+Authorization: Bearer {{login.response.body.token}}
+
+### Listar todos los usuarios
+GET {{url}}/usuarios
+Authorization: Bearer {{login.response.body.token}}
+
+### Actualizar mi perfil (el id sale del token)
+PUT {{url}}/perfil
+Authorization: Bearer {{login.response.body.token}}
+Content-Type: application/json
+
+{
+  "nombre": "Pedro Perfil"
+}
+
+### Actualizar mi usuario (usa el ID que devolvió "Mi perfil")
+PUT {{url}}/usuarios/{{perfil.response.body._id}}
+Authorization: Bearer {{login.response.body.token}}
+Content-Type: application/json
+
+{
+  "nombre": "Pedro Actualizado"
+}
+
+### Eliminar mi cuenta
+DELETE {{url}}/perfil
+Authorization: Bearer {{login.response.body.token}}

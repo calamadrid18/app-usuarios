@@ -1,0 +1,445 @@
+/* =========================================================
+   Sistema de diseño: cambia los colores aquí en un solo lugar
+   y cambia toda la app. Incluye modo claro y modo oscuro.
+   ========================================================= */
+:root {
+  --fondo: #f3f4fb;
+  --fondo-2: #e9ebf8;
+  --tarjeta: #ffffff;
+  --texto: #1b1f2a;
+  --suave: #6b7280;
+  --borde: #e6e8f0;
+  --borde-fuerte: #d4d7e4;
+
+  --primario: #6d5efc;
+  --primario-hover: #5a49e8;
+  --primario-suave: #efecff;
+
+  --error: #e03b3b;
+  --error-fondo: #fdECEC;
+  --exito: #17a36a;
+  --exito-fondo: #e7f8f0;
+
+  /* Degradado de la marca, botones y avatares */
+  --gradiente: linear-gradient(135deg, #6d5efc 0%, #9b6cff 100%);
+
+  --sombra-sm: 0 1px 2px rgba(23, 25, 45, 0.06);
+  --sombra: 0 10px 30px -12px rgba(50, 42, 120, 0.25);
+  --sombra-lg: 0 20px 45px -15px rgba(50, 42, 120, 0.35);
+
+  --radio: 14px;
+  --radio-sm: 10px;
+  --transicion: 180ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --fondo: #0f1118;
+    --fondo-2: #161a27;
+    --tarjeta: #181c28;
+    --texto: #eceefb;
+    --suave: #9aa1b5;
+    --borde: #262b3b;
+    --borde-fuerte: #333a4f;
+
+    --primario: #8b7bff;
+    --primario-hover: #9d8fff;
+    --primario-suave: #20233a;
+
+    --error: #ff6b6b;
+    --error-fondo: #2a1b1f;
+    --exito: #3ddc97;
+    --exito-fondo: #152a24;
+
+    --sombra-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+    --sombra: 0 14px 34px -14px rgba(0, 0, 0, 0.6);
+    --sombra-lg: 0 24px 50px -18px rgba(0, 0, 0, 0.7);
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: var(--texto);
+  background:
+    radial-gradient(1200px 600px at 100% -10%, var(--fondo-2), transparent 60%),
+    radial-gradient(900px 500px at -10% 110%, var(--fondo-2), transparent 55%),
+    var(--fondo);
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--primario);
+  text-decoration: none;
+  transition: color var(--transicion);
+}
+
+a:hover {
+  color: var(--primario-hover);
+}
+
+h1 {
+  font-size: clamp(1.6rem, 1rem + 2.4vw, 2.3rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+h3 {
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+/* =========================================================
+   Barra de navegación (fija, con efecto vidrio)
+   ========================================================= */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 14px 24px;
+  background: color-mix(in srgb, var(--tarjeta) 80%, transparent);
+  backdrop-filter: saturate(180%) blur(14px);
+  -webkit-backdrop-filter: saturate(180%) blur(14px);
+  border-bottom: 1px solid var(--borde);
+}
+
+.navbar .marca {
+  font-weight: 800;
+  font-size: 1.3rem;
+  letter-spacing: -0.02em;
+  background: var(--gradiente);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.navbar .enlaces {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.navbar .enlaces a {
+  position: relative;
+  padding: 8px 12px;
+  border-radius: var(--radio-sm);
+  color: var(--suave);
+  font-weight: 500;
+  transition: color var(--transicion), background var(--transicion);
+}
+
+.navbar .enlaces a:hover {
+  color: var(--texto);
+  background: var(--primario-suave);
+}
+
+.navbar .enlaces a.active {
+  color: var(--primario);
+  font-weight: 600;
+}
+
+/* La marca y los botones dentro de la navbar no llevan el fondo de enlace */
+.navbar .enlaces a.marca:hover,
+.navbar .enlaces a.boton:hover {
+  background: none;
+}
+
+/* =========================================================
+   Contenedor y tarjetas
+   ========================================================= */
+.contenedor {
+  max-width: 960px;
+  margin: 40px auto;
+  padding: 0 20px;
+  animation: aparecer 420ms ease both;
+}
+
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.tarjeta {
+  background: var(--tarjeta);
+  border: 1px solid var(--borde);
+  border-radius: var(--radio);
+  padding: 28px;
+  box-shadow: var(--sombra);
+}
+
+/* =========================================================
+   Formularios
+   ========================================================= */
+.formulario {
+  max-width: 440px;
+  margin: 0 auto;
+}
+
+.formulario h1 {
+  margin-top: 0;
+  margin-bottom: 6px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--texto);
+}
+
+input {
+  padding: 12px 14px;
+  border: 1px solid var(--borde-fuerte);
+  border-radius: var(--radio-sm);
+  font-size: 1rem;
+  font-family: inherit;
+  color: var(--texto);
+  background: var(--tarjeta);
+  transition: border-color var(--transicion), box-shadow var(--transicion);
+}
+
+input::placeholder {
+  color: var(--suave);
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--primario);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--primario) 18%, transparent);
+}
+
+.pie {
+  color: var(--suave);
+  font-size: 0.9rem;
+}
+
+/* =========================================================
+   Botones
+   ========================================================= */
+.boton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border: none;
+  border-radius: var(--radio-sm);
+  background: var(--gradiente);
+  color: white !important;
+  font-size: 0.98rem;
+  font-weight: 600;
+  font-family: inherit;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0 8px 18px -8px color-mix(in srgb, var(--primario) 75%, transparent);
+  transition: transform var(--transicion), box-shadow var(--transicion), opacity var(--transicion);
+}
+
+.boton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 26px -10px color-mix(in srgb, var(--primario) 80%, transparent);
+}
+
+.boton:active {
+  transform: translateY(0);
+}
+
+.boton:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.boton.secundario {
+  background: transparent;
+  color: var(--primario) !important;
+  border: 1px solid var(--borde-fuerte);
+  box-shadow: none;
+}
+
+.boton.secundario:hover {
+  border-color: var(--primario);
+  background: var(--primario-suave);
+}
+
+.boton.peligro {
+  background: linear-gradient(135deg, #f04444 0%, #e02a6b 100%);
+  box-shadow: 0 8px 18px -8px rgba(224, 59, 59, 0.6);
+}
+
+/* =========================================================
+   Mensajes (error / éxito)
+   ========================================================= */
+.mensaje {
+  margin: 0;
+  padding: 12px 14px;
+  border-radius: var(--radio-sm);
+  font-size: 0.9rem;
+  font-weight: 500;
+  border: 1px solid transparent;
+}
+
+.mensaje.error {
+  background: var(--error-fondo);
+  color: var(--error);
+  border-color: color-mix(in srgb, var(--error) 30%, transparent);
+}
+
+.mensaje.exito {
+  background: var(--exito-fondo);
+  color: var(--exito);
+  border-color: color-mix(in srgb, var(--exito) 30%, transparent);
+}
+
+.zona-peligro {
+  margin-top: 36px;
+  padding-top: 20px;
+  border-top: 1px dashed var(--borde-fuerte);
+}
+
+.zona-peligro h3 {
+  color: var(--error);
+  margin-top: 0;
+}
+
+/* =========================================================
+   Página de inicio (hero)
+   ========================================================= */
+.inicio {
+  text-align: center;
+  padding: 64px 0;
+}
+
+.inicio h1 {
+  background: var(--gradiente);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: 14px;
+}
+
+.inicio p {
+  max-width: 540px;
+  margin: 0 auto 32px;
+  color: var(--suave);
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.inicio .acciones {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+/* =========================================================
+   Lista de usuarios
+   ========================================================= */
+.lista {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  gap: 18px;
+  margin-top: 24px;
+}
+
+.usuario {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  padding: 20px;
+  transition: transform var(--transicion), box-shadow var(--transicion), border-color var(--transicion);
+}
+
+.usuario:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--sombra-lg);
+  border-color: color-mix(in srgb, var(--primario) 40%, var(--borde));
+}
+
+.usuario h3,
+.usuario p {
+  margin: 0 0 4px;
+}
+
+.usuario p,
+.usuario small {
+  color: var(--suave);
+}
+
+.usuario small {
+  font-size: 0.8rem;
+}
+
+.avatar {
+  flex-shrink: 0;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(--gradiente);
+  color: white;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  font-size: 1.3rem;
+  box-shadow: 0 6px 14px -6px color-mix(in srgb, var(--primario) 70%, transparent);
+}
+
+/* =========================================================
+   Responsive
+   ========================================================= */
+@media (max-width: 600px) {
+  .navbar {
+    padding: 12px 16px;
+  }
+  .contenedor {
+    margin: 24px auto;
+  }
+  .tarjeta {
+    padding: 22px;
+  }
+  .inicio {
+    padding: 44px 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
